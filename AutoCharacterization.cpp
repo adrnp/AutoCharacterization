@@ -199,7 +199,6 @@ void AutoCharacterization::sendMeasurement(float measurement) {
 
 	// pack the message
 	MeasurementMessage msg;
-	msg.msgId = static_cast<uint8_t> (MessageID::MEASUREMENT);
 	msg.timestamp = _lastMeasurementTime;
 	msg.signalStrength = measurement;
 	msg.azimuth = currentAzAngle;
@@ -210,6 +209,9 @@ void AutoCharacterization::sendMeasurement(float measurement) {
 	// sync bytes first
 	Serial.write(SYNC_1);
 	Serial.write(SYNC_2);
+
+	// send the message ID next
+	Serial.write(static_cast<uint8_t> (MessageID::MEASUREMENT));
 
 	// the actual data
 	Serial.write((uint8_t*) &msg, sizeof(msg));
@@ -222,7 +224,6 @@ void AutoCharacterization::sendStatus(Status status) {
 
 	// pack the message
 	StatusMessage msg;
-	msg.msgId = static_cast<uint8_t> (MessageID::STATUS);
 	msg.timestamp = millis();
 	msg.status = static_cast<uint8_t> (status);
 
@@ -230,6 +231,9 @@ void AutoCharacterization::sendStatus(Status status) {
 	// sync bytes first
 	Serial.write(SYNC_1);
 	Serial.write(SYNC_2);
+
+	// send the message ID next
+	Serial.write(static_cast<uint8_t> (MessageID::STATUS));
 
 	// the actual data
 	Serial.write((uint8_t*) &msg, sizeof(msg));

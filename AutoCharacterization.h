@@ -104,7 +104,6 @@ private:
 	};
 
 	struct __attribute__((__packed__)) MeasurementMessage {
-		uint8_t msgId;
 		unsigned long timestamp;
 		float signalStrength;
 		float azimuth;
@@ -112,7 +111,6 @@ private:
 	};
 
 	struct __attribute__((__packed__)) StatusMessage {
-		uint8_t msgId;
 		unsigned long timestamp;
 		uint8_t status;
 	};
