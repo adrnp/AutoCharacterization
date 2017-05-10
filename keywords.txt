@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+AutoCharacterization	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setNumMeasurements	KEYWORD2
+setFrequency	KEYWORD2
+setAzimuthStepIncrement	KEYWORD2
+setElevationStepIncrement	KEYWORD2
+setAzimuthSweep	KEYWORD2
+setElevationSweep	KEYWORD2
+isCompleted	KEYWORD2
+run	KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+#######################################
+
+FULL	LITERAL1
+AZIMUTH	LITERAL1
+ELEVATION	LITERAL1
+AZ_EL	LITERAL1
+PHI_THETA	LITERAL1
+RUNNING	LITERAL1
+PAUSED	LITERAL1
+FINISHED	LITERAL1
