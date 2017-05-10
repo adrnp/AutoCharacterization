@@ -98,14 +98,21 @@ private:
 	static const byte SYNC_1 = 0xA0;
 	static const byte SYNC_2 = 0xB1;
 
+	enum class MessageID : uint8_t {
+		MEASUREMENT = 0,
+		STATUS = 1,
+	};
+
 	struct __attribute__((__packed__)) MeasurementMessage {
-	  unsigned long timestamp;
-	  float signalStrength;
-	  float azimuth;
-	  float elevation;
+		uint8_t msgId;
+		unsigned long timestamp;
+		float signalStrength;
+		float azimuth;
+		float elevation;
 	};
 
 	struct __attribute__((__packed__)) StatusMessage {
+		uint8_t msgId;
 		unsigned long timestamp;
 		uint8_t status;
 	};

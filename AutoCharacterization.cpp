@@ -199,6 +199,7 @@ void AutoCharacterization::sendMeasurement(float measurement) {
 
 	// pack the message
 	MeasurementMessage msg;
+	msg.msgId = static_cast<uint8_t> (MessageID::MEASUREMENT);
 	msg.timestamp = _lastMeasurementTime;
 	msg.signalStrength = measurement;
 	msg.azimuth = currentAzAngle;
@@ -221,8 +222,9 @@ void AutoCharacterization::sendStatus(Status status) {
 
 	// pack the message
 	StatusMessage msg;
+	msg.msgId = static_cast<uint8_t> (MessageID::STATUS);
 	msg.timestamp = millis();
-	msg.status = static_cast<uint8_t>(status);
+	msg.status = static_cast<uint8_t> (status);
 
 	// send the data over the serial port
 	// sync bytes first
