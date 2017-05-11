@@ -59,8 +59,8 @@ public:
 	void setAzimuthStepIncrement(unsigned int numSteps);
 	void setElevationStepIncrement(unsigned int numSteps);
 
-	void setAzimuthSweep(int minAngle, int maxAngle);
-	void setElevationSweep(int minAngle, int maxAngle);
+	void setAzimuthSweep(int32_t minAngle, int32_t maxAngle);
+	void setElevationSweep(int32_t minAngle, int32_t maxAngle);
 
 	void setToStart();
 
@@ -85,13 +85,13 @@ private:
 	int _frequency;
 	unsigned long _timeout;
 
-	int _minAzAngle;
-	int _maxAzAngle;
-	int _azDesiredTravel;
+	int32_t _minAzAngle;
+	int32_t _maxAzAngle;
+	int32_t _azDesiredTravel;
 
-	int _minElAngle;
-	int _maxElAngle;
-	int _elDesiredTravel;
+	int32_t _minElAngle;
+	int32_t _maxElAngle;
+	int32_t _elDesiredTravel;
 
 	unsigned long _lastMeasurementTime;
 	int _measurementCount;

@@ -68,14 +68,14 @@ void AutoCharacterization::setElevationStepIncrement(unsigned int numSteps) {
 }
 
 
-void AutoCharacterization::setAzimuthSweep(int minAngle, int maxAngle) {
+void AutoCharacterization::setAzimuthSweep(int32_t minAngle, int32_t maxAngle) {
 	_minAzAngle = minAngle;
 	_maxAzAngle = maxAngle;
 	_azDesiredTravel = abs(_maxAzAngle - _minAzAngle);
 }
 
 
-void AutoCharacterization::setElevationSweep(int minAngle, int maxAngle) {
+void AutoCharacterization::setElevationSweep(int32_t minAngle, int32_t maxAngle) {
 	_minElAngle = minAngle;
 	_maxElAngle = maxAngle;
 	_elDesiredTravel = abs(_maxElAngle - _minElAngle);
@@ -166,7 +166,7 @@ void AutoCharacterization::setAzimuth() {
 	}
 
 	// if still have azimuth to sweep out, move to the next step
-	if (_azStepper->getAngleSwept() < _azDesiredTravel) {
+	if (_azStepper->getMilliAngleSwept() < _azDesiredTravel) {
 		_azStepper->moveToNext();
 
 	} else {  // once we've swept through the entire azimuth range, reset
@@ -189,7 +189,7 @@ void AutoCharacterization::setElevation() {
 	}
 
 	// if still have elevation to sweep out, move to the next step
-	if (_elStepper->getAngleSwept() < _elDesiredTravel) {
+	if (_elStepper->getMilliAngleSwept() < _elDesiredTravel) {
 		_elStepper->moveToNext();
 		_azCompleted = false;
 
