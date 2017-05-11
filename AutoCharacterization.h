@@ -54,13 +54,15 @@ public:
 	AutoCharacterization(Type type, Mode mode, RFPowerMonitor* powerMonitor, AngleStepper* stepper);
 
 	void setNumMeasurements(int numMeasurements);
-	void setFrequency(int frequency);
+	void setMeasurementFrequency(int frequency);
 
 	void setAzimuthStepIncrement(int numSteps);
 	void setElevationStepIncrement(int numSteps);
 
 	void setAzimuthSweep(int minAngle, int maxAngle);
 	void setElevationSweep(int minAngle, int maxAngle);
+
+	void setToStart();
 
 	bool isCompleted();
 

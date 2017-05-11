@@ -47,7 +47,7 @@ void AutoCharacterization::setNumMeasurements(int numMeasurements) {
 }
 
 
-void AutoCharacterization::setFrequency(int frequency) {
+void AutoCharacterization::setMeasurementFrequency(int frequency) {
 	_frequency = frequency;
 }
 
@@ -75,6 +75,16 @@ void AutoCharacterization::setAzimuthSweep(int minAngle, int maxAngle) {
 void AutoCharacterization::setElevationSweep(int minAngle, int maxAngle) {
 	_minElAngle = minAngle;
 	_maxElAngle = maxAngle;
+}
+
+void AutoCharacterization::setToStart() {
+	if (_azStepper != nullptr) {
+		_azStepper->moveTo(_minAzAngle);
+	}
+
+	if (_elStepper != nullptr) {
+		_elStepper->moveTo(_minElAngle);
+	}
 }
 
 
