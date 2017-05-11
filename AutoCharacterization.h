@@ -56,8 +56,8 @@ public:
 	void setNumMeasurements(int numMeasurements);
 	void setMeasurementFrequency(int frequency);
 
-	void setAzimuthStepIncrement(int numSteps);
-	void setElevationStepIncrement(int numSteps);
+	void setAzimuthStepIncrement(unsigned int numSteps);
+	void setElevationStepIncrement(unsigned int numSteps);
 
 	void setAzimuthSweep(int minAngle, int maxAngle);
 	void setElevationSweep(int minAngle, int maxAngle);

@@ -54,14 +54,14 @@ void AutoCharacterization::setMeasurementFrequency(int frequency) {
 }
 
 
-void AutoCharacterization::setAzimuthStepIncrement(int numSteps) {
+void AutoCharacterization::setAzimuthStepIncrement(unsigned int numSteps) {
 	if (_azStepper != nullptr) {
 		_azStepper->setNextStepSize(numSteps);
 	}
 }
 
 
-void AutoCharacterization::setElevationStepIncrement(int numSteps) {
+void AutoCharacterization::setElevationStepIncrement(unsigned int numSteps) {
 	if (_elStepper != nullptr) {
 		_elStepper->setNextStepSize(numSteps);
 	}
