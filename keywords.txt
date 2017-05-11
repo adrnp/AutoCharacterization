@@ -7,6 +7,9 @@
 #######################################
 
 AutoCharacterization	KEYWORD1
+Type	KEYWORD1
+Mode	KEYWORD1
+Status	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -18,6 +21,7 @@ setAzimuthStepIncrement	KEYWORD2
 setElevationStepIncrement	KEYWORD2
 setAzimuthSweep	KEYWORD2
 setElevationSweep	KEYWORD2
+setToStart	KEYWORD2
 isCompleted	KEYWORD2
 run	KEYWORD2
 
