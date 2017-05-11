@@ -87,9 +87,11 @@ private:
 
 	int _minAzAngle;
 	int _maxAzAngle;
+	int _azDesiredTravel;
 
 	int _minElAngle;
 	int _maxElAngle;
+	int _elDesiredTravel;
 
 	unsigned long _lastMeasurementTime;
 	int _measurementCount;
