@@ -91,6 +91,26 @@ void AutoCharacterization::setToStart() {
 		_elStepper->moveTo(_minElAngle);
 		_elStepper->resetAngleSwept();
 	}
+
+	_completed = false;
+	_azCompleted = false;
+	_elCompleted = false;
+}
+
+
+
+void AutoCharacterization::reset() {
+	if (_azStepper != nullptr) {
+		_azStepper->reset();
+	}
+
+	if (_elStepper != nullptr) {
+		_elStepper->reset();
+	}
+
+	_completed = false;
+	_azCompleted = false;
+	_elCompleted = false;
 }
 
 

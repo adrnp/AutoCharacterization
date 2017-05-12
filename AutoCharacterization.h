@@ -64,6 +64,8 @@ public:
 
 	void setToStart();
 
+	void reset();
+
 	bool isCompleted();
 
 	void run();
