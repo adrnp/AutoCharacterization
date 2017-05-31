@@ -62,6 +62,9 @@ public:
 	void setAzimuthSweep(int32_t minAngle, int32_t maxAngle);
 	void setElevationSweep(int32_t minAngle, int32_t maxAngle);
 
+	void setAzimuthStepSize(int32_t milliAngle);
+	void setElevationStepSize(int32_t milliAngle);
+
 	void setToStart();
 
 	void reset();
@@ -90,16 +93,21 @@ private:
 	int32_t _minAzAngle;
 	int32_t _maxAzAngle;
 	int32_t _azDesiredTravel;
+	int32_t _azStepSize;
 
 	int32_t _minElAngle;
 	int32_t _maxElAngle;
 	int32_t _elDesiredTravel;
+	int32_t _elStepSize;
 
 	unsigned long _lastMeasurementTime;
 	int _measurementCount;
 	bool _azCompleted;
 	bool _elCompleted;
 	bool _completed;
+
+	int32_t _lastAzAngle;
+	int32_t _lastElAngle;
 
 	static const byte SYNC_1 = 0xA0;
 	static const byte SYNC_2 = 0xB1;

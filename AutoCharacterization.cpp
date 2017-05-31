@@ -11,14 +11,18 @@ _frequency(10),
 _minAzAngle(0),
 _maxAzAngle(359),
 _azDesiredTravel(359),
+_azStepSize(1800),
 _minElAngle(0),
 _maxElAngle(90),
 _elDesiredTravel(90),
+_elStepSize(1800),
 _lastMeasurementTime(0),
 _measurementCount(0),
 _azCompleted(false),
 _elCompleted(false),
-_completed(false)
+_completed(false),
+_lastAzAngle(0),
+_lastElAngle(0)
 {
 	// calculate the timeout time
 	_timeout = (unsigned long) (1.0/_frequency * 1000.0);
@@ -81,6 +85,14 @@ void AutoCharacterization::setElevationSweep(int32_t minAngle, int32_t maxAngle)
 	_elDesiredTravel = abs(_maxElAngle - _minElAngle);
 }
 
+void AutoCharacterization::setAzimuthStepSize(int32_t milliAngle) {
+	_azStepSize = milliAngle;
+}
+
+void AutoCharacterization::setElevationStepSize(int32_t milliAngle) {
+	_elStepSize = milliAngle;
+}
+
 void AutoCharacterization::setToStart() {
 	if (_azStepper != nullptr) {
 		_azStepper->moveTo(_minAzAngle);
@@ -91,6 +103,10 @@ void AutoCharacterization::setToStart() {
 		_elStepper->moveTo(_minElAngle);
 		_elStepper->resetAngleSwept();
 	}
+
+	// set the last commanded angles to be the mins
+	_lastAzAngle = _minAzAngle;
+	_lastElAngle = _minElAngle;
 
 	_completed = false;
 	_azCompleted = false;
@@ -210,13 +226,40 @@ void AutoCharacterization::setElevation() {
 
 	// if still have elevation to sweep out, move to the next step
 	if (_elStepper->getMilliAngleSwept() < _elDesiredTravel) {
-		_elStepper->moveToNext();
+		//_elStepper->moveToNext();
+		
+		// calculate if we should move full step size or only partial step size
+		int32_t curAngle = _elStepper->getCurrentMilliAngle();
+
+		// figure out the angle to move to
+		int32_t nextAngle = _lastElAngle + _elStepSize;
+		if (nextAngle > _maxElAngle) {
+			nextAngle = _maxElAngle;
+		}
+		_elStepper->moveTo(nextAngle);
+		_lastElAngle = nextAngle;
+
+
+
+		/* THIS IS USING THE MOVE BY LOGIC - THIS IS A BIT FLAWED IF DON'T REACH A SPECIFIC VALUE
+		
+		// for testing only moving a fixed amount - ideally 18000 should be next step size
+		if (curAngle + 18000 < _maxElAngle) {
+			_elStepper->moveBy((int32_t) 18000);
+		} else {
+			_elStepper->moveTo(_maxElAngle);
+			_lastElAngle = _maxElAngle;
+		}
+
+		*/
+
 		_azCompleted = false;
 
 	} else {  // once we've swept through the entire elevation range, reset
 		_elStepper->moveTo(_minElAngle);
 		_elStepper->resetAngleSwept();
 		_elCompleted = true;
+		_lastElAngle = _minElAngle;
 	}
 }
 
