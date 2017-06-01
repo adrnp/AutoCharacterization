@@ -11,7 +11,7 @@ _frequency(10),
 _minAzAngle(0),
 _maxAzAngle(359),
 _azDesiredTravel(359),
-_azStepSize(1800),
+_azStepSize(45000000),
 _minElAngle(0),
 _maxElAngle(90),
 _elDesiredTravel(90),
@@ -203,12 +203,24 @@ void AutoCharacterization::setAzimuth() {
 
 	// if still have azimuth to sweep out, move to the next step
 	if (_azStepper->getMicroAngleSwept() < _azDesiredTravel) {
-		_azStepper->moveToNext();
+		//_azStepper->moveToNext();
+
+		// calculate if we should move full step size or only partial step size
+		int32_t curAngle = _azStepper->getCurrentMicroAngle();
+
+		// figure out the angle to move to
+		int32_t nextAngle = _lastAzAngle + _azStepSize;
+		if (nextAngle > _maxAzAngle) {
+			nextAngle = _maxAzAngle;
+		}
+		_azStepper->moveTo(nextAngle);
+		_lastAzAngle = nextAngle;
 
 	} else {  // once we've swept through the entire azimuth range, reset
 		_azStepper->moveTo(_minAzAngle);
 		_azStepper->resetAngleSwept();
 		_azCompleted = true;
+		_lastAzAngle = _minAzAngle;
 	}
 }
 
