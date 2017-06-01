@@ -15,7 +15,7 @@ _azStepSize(1800),
 _minElAngle(0),
 _maxElAngle(90),
 _elDesiredTravel(90),
-_elStepSize(1800),
+_elStepSize(18000000),
 _lastMeasurementTime(0),
 _measurementCount(0),
 _azCompleted(false),
@@ -85,12 +85,12 @@ void AutoCharacterization::setElevationSweep(int32_t minAngle, int32_t maxAngle)
 	_elDesiredTravel = abs(_maxElAngle - _minElAngle);
 }
 
-void AutoCharacterization::setAzimuthStepSize(int32_t milliAngle) {
-	_azStepSize = milliAngle;
+void AutoCharacterization::setAzimuthStepSize(int32_t microAngle) {
+	_azStepSize = microAngle;
 }
 
-void AutoCharacterization::setElevationStepSize(int32_t milliAngle) {
-	_elStepSize = milliAngle;
+void AutoCharacterization::setElevationStepSize(int32_t microAngle) {
+	_elStepSize = microAngle;
 }
 
 void AutoCharacterization::setToStart() {
@@ -202,7 +202,7 @@ void AutoCharacterization::setAzimuth() {
 	}
 
 	// if still have azimuth to sweep out, move to the next step
-	if (_azStepper->getMilliAngleSwept() < _azDesiredTravel) {
+	if (_azStepper->getMicroAngleSwept() < _azDesiredTravel) {
 		_azStepper->moveToNext();
 
 	} else {  // once we've swept through the entire azimuth range, reset
@@ -225,11 +225,11 @@ void AutoCharacterization::setElevation() {
 	}
 
 	// if still have elevation to sweep out, move to the next step
-	if (_elStepper->getMilliAngleSwept() < _elDesiredTravel) {
+	if (_elStepper->getMicroAngleSwept() < _elDesiredTravel) {
 		//_elStepper->moveToNext();
 		
 		// calculate if we should move full step size or only partial step size
-		int32_t curAngle = _elStepper->getCurrentMilliAngle();
+		int32_t curAngle = _elStepper->getCurrentMicroAngle();
 
 		// figure out the angle to move to
 		int32_t nextAngle = _lastElAngle + _elStepSize;
@@ -269,11 +269,13 @@ void AutoCharacterization::sendMeasurement(float measurement) {
 	float currentAzAngle = 0;
 	if (_azStepper != nullptr) {
 		currentAzAngle = _azStepper->getCurrentAngle();
+		currentAzAngle = (float) _azStepper->getCurrentMicroAngle();
 	}
 
 	float currentElAngle = 0;
 	if (_elStepper != nullptr) {
-		currentElAngle = _elStepper->getCurrentAngle();
+		//currentElAngle = _elStepper->getCurrentAngle();
+		currentElAngle = (float) _elStepper->getCurrentMicroAngle();
 	}
 
 	// pack the message

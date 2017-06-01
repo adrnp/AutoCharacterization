@@ -62,8 +62,8 @@ public:
 	void setAzimuthSweep(int32_t minAngle, int32_t maxAngle);
 	void setElevationSweep(int32_t minAngle, int32_t maxAngle);
 
-	void setAzimuthStepSize(int32_t milliAngle);
-	void setElevationStepSize(int32_t milliAngle);
+	void setAzimuthStepSize(int32_t microAngle);
+	void setElevationStepSize(int32_t microAngle);
 
 	void setToStart();
 
