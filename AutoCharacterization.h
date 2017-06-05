@@ -120,8 +120,8 @@ private:
 	struct __attribute__((__packed__)) MeasurementMessage {
 		unsigned long timestamp;
 		float signalStrength;
-		float azimuth;
-		float elevation;
+		int32_t azimuth;
+		int32_t elevation;
 	};
 
 	struct __attribute__((__packed__)) StatusMessage {

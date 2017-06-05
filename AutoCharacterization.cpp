@@ -278,16 +278,14 @@ void AutoCharacterization::setElevation() {
 
 void AutoCharacterization::sendMeasurement(float measurement) {
 
-	float currentAzAngle = 0;
+	int32_t currentAzAngle = 0;
 	if (_azStepper != nullptr) {
-		currentAzAngle = _azStepper->getCurrentAngle();
-		currentAzAngle = (float) _azStepper->getCurrentMicroAngle();
+		currentAzAngle = _azStepper->getCurrentMicroAngle();
 	}
 
-	float currentElAngle = 0;
+	int32_t currentElAngle = 0;
 	if (_elStepper != nullptr) {
-		//currentElAngle = _elStepper->getCurrentAngle();
-		currentElAngle = (float) _elStepper->getCurrentMicroAngle();
+		currentElAngle = _elStepper->getCurrentMicroAngle();
 	}
 
 	// pack the message
