@@ -73,6 +73,7 @@ public:
 
 	void run();
 
+	void sendStatus(Status status);
 
 private:
 
@@ -136,11 +137,6 @@ private:
 
 
 	void sendMeasurement(float measurement);
-
-	void sendStatus(Status status);
-
-
-
 
 };
 
