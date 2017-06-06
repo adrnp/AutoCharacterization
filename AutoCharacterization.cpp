@@ -291,6 +291,7 @@ void AutoCharacterization::sendMeasurement(float measurement) {
 	// pack the message
 	MeasurementMessage msg;
 	msg.timestamp = _lastMeasurementTime;
+	msg.measIndex = _measurementCount;
 	msg.signalStrength = measurement;
 	msg.azimuth = currentAzAngle;
 	msg.elevation = currentElAngle;
