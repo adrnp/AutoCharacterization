@@ -203,7 +203,6 @@ void AutoCharacterization::setAzimuth() {
 
 	// if still have azimuth to sweep out, move to the next step
 	if (_azStepper->getMicroAngleSwept() < _azDesiredTravel) {
-		//_azStepper->moveToNext();
 
 		// calculate if we should move full step size or only partial step size
 		int32_t curAngle = _azStepper->getCurrentMicroAngle();
@@ -217,7 +216,6 @@ void AutoCharacterization::setAzimuth() {
 		_lastAzAngle = nextAngle;
 
 	} else {  // once we've swept through the entire azimuth range, reset
-		//_azStepper->moveTo(_minAzAngle);
 		
 		// want to unwind the motor instead of simply moving back to 0
 		// therefore need to go backwards
@@ -242,8 +240,7 @@ void AutoCharacterization::setElevation() {
 
 	// if still have elevation to sweep out, move to the next step
 	if (_elStepper->getMicroAngleSwept() < _elDesiredTravel) {
-		//_elStepper->moveToNext();
-		
+
 		// calculate if we should move full step size or only partial step size
 		int32_t curAngle = _elStepper->getCurrentMicroAngle();
 
@@ -255,19 +252,6 @@ void AutoCharacterization::setElevation() {
 		_elStepper->moveTo(nextAngle);
 		_lastElAngle = nextAngle;
 
-
-
-		/* THIS IS USING THE MOVE BY LOGIC - THIS IS A BIT FLAWED IF DON'T REACH A SPECIFIC VALUE
-		
-		// for testing only moving a fixed amount - ideally 18000 should be next step size
-		if (curAngle + 18000 < _maxElAngle) {
-			_elStepper->moveBy((int32_t) 18000);
-		} else {
-			_elStepper->moveTo(_maxElAngle);
-			_lastElAngle = _maxElAngle;
-		}
-
-		*/
 
 		_azCompleted = false;
 
