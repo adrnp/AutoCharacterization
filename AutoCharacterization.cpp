@@ -217,7 +217,11 @@ void AutoCharacterization::setAzimuth() {
 		_lastAzAngle = nextAngle;
 
 	} else {  // once we've swept through the entire azimuth range, reset
-		_azStepper->moveTo(_minAzAngle);
+		//_azStepper->moveTo(_minAzAngle);
+		
+		// want to unwind the motor instead of simply moving back to 0
+		// therefore need to go backwards
+		_azStepper->moveBy(-_azStepper->getMicroAngleSwept());
 		_azStepper->resetAngleSwept();
 		_azCompleted = true;
 		_lastAzAngle = _minAzAngle;
