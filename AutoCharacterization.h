@@ -75,6 +75,8 @@ public:
 
 	void sendStatus(Status status);
 
+	void sendMeasurement(float measurement);
+
 private:
 
 	/** the characterization run type */
@@ -134,9 +136,6 @@ private:
 
 	void setAzimuth();
 	void setElevation();
-
-
-	void sendMeasurement(float measurement);
 
 };
 
