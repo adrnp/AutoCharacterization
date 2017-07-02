@@ -100,13 +100,13 @@ void AutoCharacterization::setToStart() {
 	}
 
 	if (_elStepper != nullptr) {
-		_elStepper->moveTo(_minElAngle);
+		_elStepper->moveTo(_maxElAngle);
 		_elStepper->resetAngleSwept();
 	}
 
 	// set the last commanded angles to be the mins
 	_lastAzAngle = _minAzAngle;
-	_lastElAngle = _minElAngle;
+	_lastElAngle = _maxElAngle;
 
 	_completed = false;
 	_azCompleted = false;
@@ -245,9 +245,9 @@ void AutoCharacterization::setElevation() {
 		int32_t curAngle = _elStepper->getCurrentMicroAngle();
 
 		// figure out the angle to move to
-		int32_t nextAngle = _lastElAngle + _elStepSize;
-		if (nextAngle > _maxElAngle) {
-			nextAngle = _maxElAngle;
+		int32_t nextAngle = _lastElAngle - _elStepSize;
+		if (nextAngle < _minElAngle) {
+			nextAngle = _minElAngle;
 		}
 		_elStepper->moveTo(nextAngle);
 		_lastElAngle = nextAngle;
@@ -256,10 +256,10 @@ void AutoCharacterization::setElevation() {
 		_azCompleted = false;
 
 	} else {  // once we've swept through the entire elevation range, reset
-		_elStepper->moveTo(_minElAngle);
+		_elStepper->moveTo(_maxElAngle);
 		_elStepper->resetAngleSwept();
 		_elCompleted = true;
-		_lastElAngle = _minElAngle;
+		_lastElAngle = _maxElAngle;
 	}
 }
 
