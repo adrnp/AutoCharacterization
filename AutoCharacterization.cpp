@@ -93,6 +93,10 @@ void AutoCharacterization::setElevationStepSize(int32_t microAngle) {
 	_elStepSize = microAngle;
 }
 
+void AutoCharacterization::setType(Type type) {
+	_type = type;
+}
+
 void AutoCharacterization::setToStart() {
 	if (_azStepper != nullptr) {
 		_azStepper->moveTo(_minAzAngle);

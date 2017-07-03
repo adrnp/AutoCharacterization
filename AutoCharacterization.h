@@ -65,6 +65,8 @@ public:
 	void setAzimuthStepSize(int32_t microAngle);
 	void setElevationStepSize(int32_t microAngle);
 
+	void setType(Type type);
+
 	void setToStart();
 
 	void reset();
