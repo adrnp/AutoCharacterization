@@ -16,6 +16,7 @@ _minElAngle(0),
 _maxElAngle(90),
 _elDesiredTravel(90),
 _elStepSize(18000000),
+_elMultiplier(1),
 _lastMeasurementTime(0),
 _measurementCount(0),
 _azCompleted(false),
@@ -106,6 +107,13 @@ void AutoCharacterization::setToStart() {
 	if (_elStepper != nullptr) {
 		_elStepper->moveTo(_minElAngle);
 		_elStepper->resetAngleSwept();
+	}
+
+	// adjust the step size direction based on min/max values
+	if (_minElAngle > _maxElAngle) {
+		_elMultiplier = -1;
+	} else {
+		_elMultiplier = 1;
 	}
 
 	// set the last commanded angles to be the mins
@@ -249,8 +257,8 @@ void AutoCharacterization::setElevation() {
 		int32_t curAngle = _elStepper->getCurrentMicroAngle();
 
 		// figure out the angle to move to
-		int32_t nextAngle = _lastElAngle + _elStepSize;
-		if (nextAngle > _maxElAngle) {
+		int32_t nextAngle = _lastElAngle + _elMultiplier*_elStepSize;
+		if (_elMultiplier*nextAngle > _elMultiplier*_maxElAngle) {
 			nextAngle = _maxElAngle;
 		}
 		_elStepper->moveTo(nextAngle);

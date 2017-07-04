@@ -104,6 +104,7 @@ private:
 	int32_t _maxElAngle;
 	int32_t _elDesiredTravel;
 	int32_t _elStepSize;
+	int8_t _elMultiplier;
 
 	unsigned long _lastMeasurementTime;
 	int _measurementCount;
